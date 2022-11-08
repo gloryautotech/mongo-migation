@@ -194,7 +194,6 @@ app.post('/api/mongoScript', async (req, res) => {
       })
       res.send({ msg: 'Mongo Colletion deleted !!' })
     } else if (obj.operation == 'migrate') {
-      let obj = prepareRequestObject(req)
       if (!obj.isDestAtlasLink) {
         let cmd =
           'mongorestore -h ' +
@@ -271,9 +270,9 @@ app.post('/api/mongoScript', async (req, res) => {
       setTimeout(() => {
         res.send({ msg: 'Mongo Dump done !!', error: false })
       }, 5000)
+    } else {
+      res.send({ msg: 'Invalid operation selected', error: true })
     }
-
-    res.send({ msg: 'Invalid operation selected', error: true })
   } catch (err) {
     console.log(err)
     res.send({ msg: 'There is some issue !!' })
